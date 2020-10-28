@@ -1,8 +1,3 @@
-A library for Dart developers.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
-
 ## Usage
 
 A simple usage example:
@@ -11,12 +6,8 @@ A simple usage example:
 import 'package:dsb_api/dsb_api.dart';
 
 main() {
-  var awesome = new Awesome();
+  var dsb = DSBController('username', 'password');
+  var data = await dsb.dsbGetData();
+  var timetables = await dsb.dsbGetTimeTables(data);
 }
 ```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
