@@ -1,30 +1,55 @@
+import 'package:dsb_api/src/models/news.dart';
 import 'package:dsb_api/src/models/school_class.dart';
 import 'package:dsb_api/src/models/subject.dart';
 import 'package:dsb_api/src/models/substitute.dart';
+import 'package:dsb_api/src/models/text_news.dart';
 import 'package:dsb_api/src/models/timetable_day.dart';
 import 'package:web_scraper/web_scraper.dart';
+import 'package:intl/intl.dart';
 import 'package:dsb_api/src/api/dsb_api.dart' as dsb_api;
 
-//TODO: Date
 class DSBController {
   String baseUrl;
+  String dateFormat;
   final String username;
   final String password;
 
-  DSBController(this.username, this.password, { String baseUrl = 'https://app.dsbcontrol.de' }) {
-    this.baseUrl = baseUrl;
-  }
+  DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de', this.dateFormat = 'dd.MM.yyyy HH:mm' });
 
   Future<Map> dsbGetData() async {
     return dsb_api.getData(username, password);
+  }
+
+  List<DSBTextNews> getTextNews(Map data) {
+    var news = <DSBTextNews>[];
+    List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
+    var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'news');
+    if(newsIndex == -1) return news;
+    List rawNews = items[newsIndex]['Root']['Childs'];
+    var dateFormat = DateFormat(this.dateFormat);
+    news = rawNews.map((item) => DSBTextNews(item['Title'], item['Detail'].replaceAll('\n', ''), dateFormat.parse(item['Date']), item['Date'])).toList();
+    return news;
+  }
+
+  List<DSBNews> getNews(Map data) {
+    var news = <DSBNews>[];
+    List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
+    var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'tiles');
+    if(newsIndex == -1) return news;
+    List rawNews = items[newsIndex]['Root']['Childs'];
+    var dateFormat = DateFormat(this.dateFormat);
+    news = rawNews.map((item) => DSBNews(item['Title'], item['Childs'][0]['Detail'], dateFormat.parse(item['Date']), item['Date'])).toList();
+    return news;
   }
 
   Future<List<DSBTimeTableDay>> dsbGetTimeTables(Map data) async {
     var days = <DSBTimeTableDay>[];
     List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
     var timetableIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'timetable');
+    if(timetableIndex == -1) return days;
     List timetables = items[timetableIndex]['Root']['Childs'][0]['Childs'];
-    if(timetableIndex != -1) days = await Future.wait(timetables.map((day) async => DSBTimeTableDay(day['Date'], await _webscrapTable(day['Detail']))).toList());
+    var dateFormat = DateFormat(this.dateFormat);
+    days = await Future.wait(timetables.map((day) async => DSBTimeTableDay(await _webscrapTable(day['Detail']), dateFormat.parse(day['Date']), day['Date'])).toList());
     return days;
   }
 
@@ -32,7 +57,7 @@ class DSBController {
     var resultSubs = <DSBSubstitute>[];
     for (var substitute in substitutes) {
       for (var schoolClass in substitute.schoolClass) {
-        if(schoolClass.className == dsbClass.className && schoolClass.grade == dsbClass.grade) {
+        if(schoolClass.className == dsbClass.className.toUpperCase() && schoolClass.grade == dsbClass.grade) {
           resultSubs.add(
             DSBSubstitute(
               [schoolClass], 
