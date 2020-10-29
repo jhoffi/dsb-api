@@ -87,7 +87,7 @@ class DSBController {
       var hoursDiff = hoursDiffString.map((e) => int.parse(e, onError: (source) => 0,)).toList();
       var diff = hoursDiff[1] - hoursDiff[0] + 1;
       var start = hoursDiff[0];
-      var hours = [];
+      List<int> hours = [];
       for (var i = 0; i < diff; i++) {
         hours.add(start + i);
       }
