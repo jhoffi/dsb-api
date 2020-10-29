@@ -16,7 +16,7 @@ class DSBController {
 
   DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de', this.dateFormat = 'dd.MM.yyyy HH:mm' });
 
-  Future<Map> dsbGetData() async {
+  Future<Map> getData() async {
     return dsb_api.getData(username, password);
   }
 
@@ -42,7 +42,7 @@ class DSBController {
     return news;
   }
 
-  Future<List<DSBTimeTableDay>> dsbGetTimeTables(Map data) async {
+  Future<List<DSBTimeTableDay>> getTimeTables(Map data) async {
     var days = <DSBTimeTableDay>[];
     List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
     var timetableIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'timetable');
@@ -53,7 +53,7 @@ class DSBController {
     return days;
   }
 
-  List<DSBSubstitute> dsbGetSubstitutesByClass(List<DSBSubstitute> substitutes, DSBSchoolClass dsbClass) {
+  List<DSBSubstitute> filterSubstitutesByClass(List<DSBSubstitute> substitutes, DSBSchoolClass dsbClass) {
     var resultSubs = <DSBSubstitute>[];
     for (var substitute in substitutes) {
       for (var schoolClass in substitute.schoolClass) {
