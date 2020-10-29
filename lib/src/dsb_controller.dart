@@ -38,7 +38,7 @@ class DSBController {
     final webScraper = WebScraper(baseUrl);
     if(!(await webScraper.loadWebPage(path))) return null;
     var entries = webScraper.getElement('table.mon_list > tbody > tr > td', []);
-    var substitutes = [];
+    List<DSBSubstitute> substitutes = [];
     for (var i = 0; i < entries.length; i = i + 6) {
       substitutes.add(DSBSubstitute(
         _translateClass(entries[i]['title']),
