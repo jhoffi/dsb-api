@@ -28,9 +28,25 @@ class DSBController {
     return days;
   }
 
-  Future<List<DSBSubstitute>> dsbGetSubstitutesByClass(DSBSchoolClass dsbClass) {
-    //TODO: ADD COMMAND
-    return null;
+  List<DSBSubstitute> dsbGetSubstitutesByClass(List<DSBSubstitute> substitutes, DSBSchoolClass dsbClass) {
+    var resultSubs = <DSBSubstitute>[];
+    for (var substitute in substitutes) {
+      for (var schoolClass in substitute.schoolClass) {
+        if(schoolClass.className == dsbClass.className && schoolClass.grade == dsbClass.grade) {
+          resultSubs.add(
+            DSBSubstitute(
+              [schoolClass], 
+              substitute.lessons, 
+              substitute.newDSBSubject, 
+              substitute.oldDSBSubject, 
+              substitute.room, 
+              substitute.text
+            )
+          );
+        }
+      }
+    }
+    return resultSubs.isNotEmpty ? resultSubs : null;
   }
 
   Future<List<DSBSubstitute>> _webscrapTable(String url) async {
