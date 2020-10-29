@@ -38,7 +38,7 @@ class DSBController {
     final webScraper = WebScraper(baseUrl);
     if(!(await webScraper.loadWebPage(path))) return null;
     var entries = webScraper.getElement('table.mon_list > tbody > tr > td', []);
-    List<DSBSubstitute> substitutes = [];
+    var substitutes = <DSBSubstitute>[];
     for (var i = 0; i < entries.length; i = i + 6) {
       substitutes.add(DSBSubstitute(
         _translateClass(entries[i]['title']),
@@ -87,7 +87,7 @@ class DSBController {
       var hoursDiff = hoursDiffString.map((e) => int.parse(e, onError: (source) => 0,)).toList();
       var diff = hoursDiff[1] - hoursDiff[0] + 1;
       var start = hoursDiff[0];
-      List<int> hours = [];
+      var hours = <int>[];
       for (var i = 0; i < diff; i++) {
         hours.add(start + i);
       }
