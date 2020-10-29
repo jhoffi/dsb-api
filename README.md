@@ -9,5 +9,7 @@ main() {
   var dsb = DSBController('username', 'password');
   var data = await dsb.dsbGetData();
   var timetables = await dsb.dsbGetTimeTables(data);
+  var news = dsb.getNews(data);
+  var textNews = dsb.getTextNews(data);
 }
 ```
