@@ -1,4 +1,33 @@
-Map<String, DSBSubject> dsbSubjectMap = {
+import 'package:dsb_api/dsb_api.dart';
+
+Map<String, DSBSubject> dsbSubjectMapPretty = {
+  '---': DSBSubject.entfaellt,
+  'Englisch': DSBSubject.englisch,
+  'Mathematik': DSBSubject.mathematik,
+  'Kunst': DSBSubject.kunst,
+  'Deutsch': DSBSubject.deutsch,
+  'Latein': DSBSubject.latein,
+  'Französisch': DSBSubject.franzoesisch,
+  'Chemie': DSBSubject.chemie,
+  'Chemie (Übungen)': DSBSubject.chemieUebung,
+  'Evangelische Religionslehre': DSBSubject.evReligion,
+  'Katholische Religionslehre': DSBSubject.kathReligion,
+  'Physik': DSBSubject.physik,
+  'Ethik': DSBSubject.ethik,
+  'Geografie': DSBSubject.geografie,
+  'Geschichte': DSBSubject.geografie,
+  'Biologie': DSBSubject.biologie,
+  'Musik': DSBSubject.musik,
+  'Sport (w)': DSBSubject.sportW,
+  'Sport (m)': DSBSubject.sportM,
+  'Wirtschaft und Recht': DSBSubject.wirtschaftUndRecht,
+  'Informatik': DSBSubject.informatik,
+  'Pause': DSBSubject.pause
+};
+
+Map<String, DSBSubject> dsbSubjectMap = dsbSubjectMapPretty.map((key, value) => MapEntry(key.toLowerCase(), value));
+
+Map<String, DSBSubject> _dsbSubjectMapOld = {
   '---': DSBSubject.entfaellt,
   'englisch': DSBSubject.englisch,
   'mathematik': DSBSubject.mathematik,
@@ -21,6 +50,31 @@ Map<String, DSBSubject> dsbSubjectMap = {
   'wirtschaft und recht': DSBSubject.wirtschaftUndRecht,
   'informatik': DSBSubject.informatik,
   'pause': DSBSubject.pause
+};
+
+Map<String, DSBSubject> dsbSubjectShortPretty = {
+  '-': DSBSubject.entfaellt,
+  'E': DSBSubject.englisch,
+  'M': DSBSubject.mathematik,
+  'K': DSBSubject.kunst,
+  'D': DSBSubject.deutsch,
+  'L': DSBSubject.latein,
+  'Fr': DSBSubject.franzoesisch,
+  'Ch': DSBSubject.chemie,
+  'Ch-Ü': DSBSubject.chemieUebung,
+  'EvR': DSBSubject.evReligion,
+  'KtR': DSBSubject.kathReligion,
+  'Ph': DSBSubject.physik,
+  'Eth': DSBSubject.ethik,
+  'Geo': DSBSubject.geografie,
+  'G': DSBSubject.geografie,
+  'Bio': DSBSubject.biologie,
+  'Mu': DSBSubject.musik,
+  'Sp-W': DSBSubject.sportW,
+  'Sp-M': DSBSubject.sportM,
+  'WR': DSBSubject.wirtschaftUndRecht,
+  'Info': DSBSubject.informatik,
+  '': DSBSubject.pause
 };
 
 enum DSBSubject {
