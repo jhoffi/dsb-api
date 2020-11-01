@@ -62,10 +62,10 @@ class DSBController {
             DSBSubstitute(
               [schoolClass], 
               substitute.lessons, 
-              substitute.newDSBSubject, 
-              substitute.oldDSBSubject, 
+              substitute.substitute, 
+              substitute.subject, 
               substitute.room, 
-              substitute.text
+              substitute.substituteText
             )
           );
         }

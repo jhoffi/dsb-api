@@ -4,10 +4,10 @@ import 'package:dsb_api/src/models/subject.dart';
 class DSBSubstitute {
   final List<DSBSchoolClass> schoolClass;
   final List<int> lessons;
-  final DSBSubject newDSBSubject;
-  final DSBSubject oldDSBSubject;
+  final DSBSubject substitute;
+  final DSBSubject subject;
   final String room;
-  final String text;
+  final String substituteText;
 
-  DSBSubstitute(this.schoolClass, this.lessons, this.newDSBSubject, this.oldDSBSubject, this.room, this.text);
+  DSBSubstitute(this.schoolClass, this.lessons, this.substitute, this.subject, this.room, this.substituteText);
 }

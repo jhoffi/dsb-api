@@ -6,5 +6,5 @@ void main() async {
   var timetables = await dsb.getTimeTables(data);
   var news = dsb.getNews(data);
   var textNews = dsb.getTextNews(data);
-  print(timetables[0].substitutes.where((e) => e.newDSBSubject == DSBSubject.entfaellt).toList());
+  print(timetables[0].substitutes.where((e) => e.substitute == DSBSubject.entfaellt).toList());
 }

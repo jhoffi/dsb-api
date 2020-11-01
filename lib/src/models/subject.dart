@@ -1,5 +1,3 @@
-import 'package:dsb_api/dsb_api.dart';
-
 Map<String, DSBSubject> dsbSubjectMapPretty = {
   '---': DSBSubject.entfaellt,
   'Englisch': DSBSubject.englisch,
@@ -22,10 +20,66 @@ Map<String, DSBSubject> dsbSubjectMapPretty = {
   'Sport (m)': DSBSubject.sportM,
   'Wirtschaft und Recht': DSBSubject.wirtschaftUndRecht,
   'Informatik': DSBSubject.informatik,
+  'Sozialkunde': DSBSubject.sozialkunde,
   'Pause': DSBSubject.pause
 };
 
 Map<String, DSBSubject> dsbSubjectMap = dsbSubjectMapPretty.map((key, value) => MapEntry(key.toLowerCase(), value));
+
+Map<DSBSubject, String> dsbSubjectShortPretty = {
+  DSBSubject.entfaellt: '-',
+  DSBSubject.englisch: 'E',
+  DSBSubject.mathematik: 'M',
+  DSBSubject.kunst: 'K',
+  DSBSubject.deutsch: 'D',
+  DSBSubject.latein: 'L',
+  DSBSubject.franzoesisch: 'Fr',
+  DSBSubject.chemie: 'Ch',
+  DSBSubject.chemieUebung: 'Ch-Ü',
+  DSBSubject.evReligion: 'EvR',
+  DSBSubject.kathReligion: 'KtR',
+  DSBSubject.physik: 'Ph',
+  DSBSubject.ethik: 'Eth',
+  DSBSubject.geografie: 'Geo',
+  DSBSubject.geschichte: 'G',
+  DSBSubject.biologie: 'Bio',
+  DSBSubject.musik: 'Mu',
+  DSBSubject.sportW: 'Sp',
+  DSBSubject.sportM: 'Sp',
+  DSBSubject.wirtschaftUndRecht: 'WuR',
+  DSBSubject.informatik: 'Info',
+  DSBSubject.sozialkunde: 'Sozi',
+  DSBSubject.pause: ''
+};
+
+enum DSBSubject {
+  unbekannt,
+  englisch,
+  mathematik,
+  kunst,
+  deutsch,
+  latein,
+  franzoesisch,
+  chemie,
+  chemieUebung,
+  evReligion,
+  ethik,
+  kathReligion,
+  physik,
+  geografie,
+  geschichte,
+  biologie,
+  entfaellt,
+  musik,
+  sportW,
+  sportM,
+  wirtschaftUndRecht,
+  informatik,
+  sozialkunde,
+  pause
+}
+
+//OLD
 
 Map<String, DSBSubject> _dsbSubjectMapOld = {
   '---': DSBSubject.entfaellt,
@@ -52,7 +106,7 @@ Map<String, DSBSubject> _dsbSubjectMapOld = {
   'pause': DSBSubject.pause
 };
 
-Map<String, DSBSubject> dsbSubjectShortPretty = {
+Map<String, DSBSubject> _dsbSubjectShortPrettyOld = {
   '-': DSBSubject.entfaellt,
   'E': DSBSubject.englisch,
   'M': DSBSubject.mathematik,
@@ -74,31 +128,6 @@ Map<String, DSBSubject> dsbSubjectShortPretty = {
   'Sp': DSBSubject.sportM,
   'WR': DSBSubject.wirtschaftUndRecht,
   'Info': DSBSubject.informatik,
+  'Sozi': DSBSubject.sozialkunde,
   '': DSBSubject.pause
 };
-
-enum DSBSubject {
-  unbekannt,
-  englisch,
-  mathematik,
-  kunst,
-  deutsch,
-  latein,
-  franzoesisch,
-  chemie,
-  chemieUebung,
-  evReligion,
-  ethik,
-  kathReligion,
-  physik,
-  geografie,
-  geschichte,
-  biologie,
-  entfaellt,
-  musik,
-  sportW,
-  sportM,
-  wirtschaftUndRecht,
-  informatik,
-  pause
-}
