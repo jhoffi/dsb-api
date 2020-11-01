@@ -70,8 +70,8 @@ Map<String, DSBSubject> dsbSubjectShortPretty = {
   'G': DSBSubject.geografie,
   'Bio': DSBSubject.biologie,
   'Mu': DSBSubject.musik,
-  'Sp-W': DSBSubject.sportW,
-  'Sp-M': DSBSubject.sportM,
+  'Sp': DSBSubject.sportW,
+  'Sp': DSBSubject.sportM,
   'WR': DSBSubject.wirtschaftUndRecht,
   'Info': DSBSubject.informatik,
   '': DSBSubject.pause
