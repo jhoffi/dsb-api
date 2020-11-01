@@ -18,7 +18,9 @@ Map<String, DSBSubject> dsbSubjectMap = {
   'musik': DSBSubject.musik,
   'sport (w)': DSBSubject.sportW,
   'sport (m)': DSBSubject.sportM,
-  'wirtschaft und recht': DSBSubject.wirtschaftUndRecht
+  'wirtschaft und recht': DSBSubject.wirtschaftUndRecht,
+  'informatik': DSBSubject.informatik,
+  'pause': DSBSubject.pause
 };
 
 enum DSBSubject {
@@ -42,5 +44,7 @@ enum DSBSubject {
   musik,
   sportW,
   sportM,
-  wirtschaftUndRecht
+  wirtschaftUndRecht,
+  informatik,
+  pause
 }
