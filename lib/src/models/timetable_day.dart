@@ -1,9 +1,9 @@
 import 'package:dsb_api/src/models/substitute.dart';
 
-class DSBTimeTableDay {
+class DSBTimetableDay {
     final String formattedDate;
     final DateTime date;
     final List<DSBSubstitute> substitutes;
 
-    DSBTimeTableDay(this.substitutes, this.date, this.formattedDate);
+    DSBTimetableDay(this.substitutes, this.date, this.formattedDate);
 }

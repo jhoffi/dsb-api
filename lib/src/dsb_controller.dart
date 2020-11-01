@@ -42,14 +42,14 @@ class DSBController {
     return news;
   }
 
-  Future<List<DSBTimeTableDay>> getTimeTables(Map data) async {
-    var days = <DSBTimeTableDay>[];
+  Future<List<DSBTimetableDay>> getTimeTables(Map data) async {
+    var days = <DSBTimetableDay>[];
     List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
     var timetableIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'timetable');
     if(timetableIndex == -1) return days;
     List timetables = items[timetableIndex]['Root']['Childs'][0]['Childs'];
     var dateFormat = DateFormat(this.dateFormat);
-    days = await Future.wait(timetables.map((day) async => DSBTimeTableDay(await _webscrapTable(day['Detail']), dateFormat.parse(day['Date']), day['Date'])).toList());
+    days = await Future.wait(timetables.map((day) async => DSBTimetableDay(await _webscrapTable(day['Detail']), dateFormat.parse(day['Date']), day['Date'])).toList());
     return days;
   }
 
