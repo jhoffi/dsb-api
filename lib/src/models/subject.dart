@@ -35,7 +35,7 @@ Map<DSBSubject, String> dsbSubjectShortPretty = {
   DSBSubject.latein: 'L',
   DSBSubject.franzoesisch: 'Fr',
   DSBSubject.chemie: 'Ch',
-  DSBSubject.chemieUebung: 'Ch-Ü',
+  DSBSubject.chemieUebung: 'ChÜ',
   DSBSubject.evReligion: 'EvR',
   DSBSubject.kathReligion: 'KtR',
   DSBSubject.physik: 'Ph',
