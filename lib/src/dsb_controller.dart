@@ -6,7 +6,7 @@ import 'package:dsb_api/src/models/text_news.dart';
 import 'package:dsb_api/src/models/timetable_day.dart';
 import 'package:web_scraper/web_scraper.dart';
 import 'package:intl/intl.dart';
-import 'package:dsb_api/src/api/dsb_api.dart' as dsb_api;
+import 'package:dsb_api/src/api/api.dart' as dsb_api;
 
 class DSBController {
   String baseUrl;
@@ -16,9 +16,9 @@ class DSBController {
 
   DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de', this.dateFormat = 'dd.MM.yyyy HH:mm' });
 
-  Future<Map> getData() async {
-    return dsb_api.getData(username, password);
-  }
+  static Future<bool> checkCredentials(String username, String password) => dsb_api.checkCredentials(username, password);
+
+  Future<Map> getData() => dsb_api.getData(username, password);
 
   List<DSBTextNews> getTextNews(Map data) {
     var news = <DSBTextNews>[];

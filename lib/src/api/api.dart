@@ -11,3 +11,12 @@ Future<Map> getData(String username, String password) async {
     throw DSBQueryException(error: e);
   }
 }
+
+Future<bool> checkCredentials(String username, String password) async {
+  try {
+    var result = await dsb.dsbCheckCredentials(username, password, httpPost);
+    return result == null;
+  } catch (e) {
+    throw DSBQueryException(error: e);
+  }
+}
