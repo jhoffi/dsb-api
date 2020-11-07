@@ -1,0 +1,1 @@
+enum SchoolDay { monday, tuesday, wednesday, thursday, friday }

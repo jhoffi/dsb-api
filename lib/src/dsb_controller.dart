@@ -1,5 +1,6 @@
 import 'package:dsb_api/src/models/news.dart';
 import 'package:dsb_api/src/models/school_class.dart';
+import 'package:dsb_api/src/models/school_day.dart';
 import 'package:dsb_api/src/models/subject.dart';
 import 'package:dsb_api/src/models/substitute.dart';
 import 'package:dsb_api/src/models/text_news.dart';
@@ -10,11 +11,11 @@ import 'package:dsb_api/src/api/api.dart' as dsb_api;
 
 class DSBController {
   String baseUrl;
-  String dateFormat;
+  final String _dateFormat = 'dd.MM.yyyy HH:mm';
   final String username;
   final String password;
 
-  DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de', this.dateFormat = 'dd.MM.yyyy HH:mm' });
+  DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de' });
 
   static Future<bool> checkCredentials(String username, String password) => dsb_api.checkCredentials(username, password);
 
@@ -26,7 +27,7 @@ class DSBController {
     var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'news');
     if(newsIndex == -1) return news;
     List rawNews = items[newsIndex]['Root']['Childs'];
-    var dateFormat = DateFormat(this.dateFormat);
+    var dateFormat = DateFormat(_dateFormat);
     news = rawNews.map((item) => DSBTextNews(item['Title'], item['Detail'].replaceAll('\n', ''), dateFormat.parse(item['Date']), item['Date'])).toList();
     return news;
   }
@@ -37,7 +38,7 @@ class DSBController {
     var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'tiles');
     if(newsIndex == -1) return news;
     List rawNews = items[newsIndex]['Root']['Childs'];
-    var dateFormat = DateFormat(this.dateFormat);
+    var dateFormat = DateFormat(_dateFormat);
     news = rawNews.map((item) => DSBNews(item['Title'], item['Childs'][0]['Detail'], dateFormat.parse(item['Date']), item['Date'])).toList();
     return news;
   }
@@ -48,8 +49,13 @@ class DSBController {
     var timetableIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'timetable');
     if(timetableIndex == -1) return days;
     List timetables = items[timetableIndex]['Root']['Childs'][0]['Childs'];
-    var dateFormat = DateFormat(this.dateFormat);
-    days = await Future.wait(timetables.map((day) async => DSBTimetableDay(await _webscrapTable(day['Detail']), dateFormat.parse(day['Date']), day['Date'])).toList());
+    var dateFormat = DateFormat(_dateFormat);
+    days = await Future.wait(timetables.map((day) async {
+      var ttDay = await _webscrapTable(day['Detail']);
+      ttDay.updateDate = dateFormat.parse(day['Date']);
+      ttDay.formattedUpdateDate = day['Date'];
+      return ttDay;
+    }));
     return days;
   }
 
@@ -74,23 +80,28 @@ class DSBController {
     return resultSubs.isNotEmpty ? resultSubs : null;
   }
 
-  Future<List<DSBSubstitute>> _webscrapTable(String url) async {
+  Future<DSBTimetableDay> _webscrapTable(String url) async {
+    var dateFormat = DateFormat('dd.MM.yyyy');
     var path = url.replaceAll(baseUrl, '');
     final webScraper = WebScraper(baseUrl);
     if(!(await webScraper.loadWebPage(path))) return null;
     var entries = webScraper.getElement('table.mon_list > tbody > tr > td', []);
     var substitutes = <DSBSubstitute>[];
-    for (var i = 0; i < entries.length; i = i + 6) {
-      substitutes.add(DSBSubstitute(
-        _translateClass(entries[i]['title']),
-        _translateLessons(entries[i + 1]['title']), //stunden
-        _translateDSBSubject(entries[i + 2]['title']),
-        _translateDSBSubject(entries[i + 4]['title']),
-        entries[i + 3]['title'], //raum
-        entries[i + 5]['title'])
-      );
+    if(entries != null && entries.isNotEmpty && entries.length > 1) {
+      for (var i = 0; i < entries.length; i = i + 6) {
+        substitutes.add(DSBSubstitute(
+          _translateClass(entries[i]['title']),
+          _translateLessons(entries[i + 1]['title']), //stunden
+          _translateDSBSubject(entries[i + 2]['title']),
+          _translateDSBSubject(entries[i + 4]['title']),
+          entries[i + 3]['title'], //raum
+          entries[i + 5]['title'])
+        );
+      }
     }
-    return substitutes;
+    var formattedDate = webScraper.getElement('div.mon_title', [])[0]['title'].split(' ')[0];
+    var date = dateFormat.parse(formattedDate);
+    return DSBTimetableDay(substitutes, date, formattedDate, _dateToSchoolDay(date));
   }
 
   List<DSBSchoolClass> _translateClass(String name) {
@@ -134,5 +145,15 @@ class DSBController {
       }
       return hours.isNotEmpty ? hours : null;
     }
+  }
+
+  SchoolDay _dateToSchoolDay(DateTime date) {
+    var weekday = date.weekday;
+    if(weekday == 1) return SchoolDay.monday;
+    if(weekday == 2) return SchoolDay.tuesday;
+    if(weekday == 3) return SchoolDay.wednesday;
+    if(weekday == 4) return SchoolDay.thursday;
+    if(weekday == 5) return SchoolDay.friday;
+    if(weekday == 6 || weekday == 7) return null;
   }
 }
