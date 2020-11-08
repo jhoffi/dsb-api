@@ -21,7 +21,8 @@ Map<String, DSBSubject> dsbSubjectMapPretty = {
   'Wirtschaft und Recht': DSBSubject.wirtschaftUndRecht,
   'Informatik': DSBSubject.informatik,
   'Sozialkunde': DSBSubject.sozialkunde,
-  'Pause': DSBSubject.pause
+  'Pause': DSBSubject.pause,
+  'Unbekannt': DSBSubject.unbekannt
 };
 
 Map<String, DSBSubject> dsbSubjectMap = dsbSubjectMapPretty.map((key, value) => MapEntry(key.toLowerCase(), value));
@@ -49,7 +50,8 @@ Map<DSBSubject, String> dsbSubjectShortPretty = {
   DSBSubject.wirtschaftUndRecht: 'WuR',
   DSBSubject.informatik: 'Info',
   DSBSubject.sozialkunde: 'Sozi',
-  DSBSubject.pause: ''
+  DSBSubject.pause: '',
+  DSBSubject.unbekannt: '?'
 };
 
 enum DSBSubject {
