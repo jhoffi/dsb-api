@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dsb_api/src/api/exceptions.dart';
+import 'package:dsb_api/src/models/exceptions.dart';
 import 'package:dsbuntis/dsbuntis.dart' as dsb;
 import 'package:dsb_api/src/api/post.dart';
 
