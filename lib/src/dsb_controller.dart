@@ -89,14 +89,16 @@ class DSBController {
     var substitutes = <DSBSubstitute>[];
     if(entries != null && entries.isNotEmpty && entries.length > 1) {
       for (var i = 0; i < entries.length; i = i + 6) {
+        String room = entries[i + 3]['title'];
         substitutes.add(DSBSubstitute(
           _translateClass(entries[i]['title']),
           _translateLessons(entries[i + 1]['title']), //stunden
           _translateDSBSubject(entries[i + 2]['title']),
           _translateDSBSubject(entries[i + 4]['title']),
-          entries[i + 3]['title'], //raum
+          room != '---' ? room : '-', //raum
           entries[i + 5]['title'])
         );
+        
       }
     }
     var formattedDate = webScraper.getElement('div.mon_title', [])[0]['title'].split(' ')[0];
