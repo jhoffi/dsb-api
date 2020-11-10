@@ -13,6 +13,7 @@ Map<String, DSBSubject> dsbSubjectMapPretty = {
   'Physik': DSBSubject.physik,
   'Ethik': DSBSubject.ethik,
   'Geografie': DSBSubject.geografie,
+  'Geographie': DSBSubject.geografie,
   'Geschichte': DSBSubject.geschichte,
   'Biologie': DSBSubject.biologie,
   'Musik': DSBSubject.musik,

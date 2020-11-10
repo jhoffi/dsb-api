@@ -156,6 +156,6 @@ class DSBController {
     if(weekday == 3) return SchoolDay.wednesday;
     if(weekday == 4) return SchoolDay.thursday;
     if(weekday == 5) return SchoolDay.friday;
-    if(weekday == 6 || weekday == 7) return null;
+    return null;
   }
 }
