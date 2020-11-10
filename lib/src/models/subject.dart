@@ -1,5 +1,5 @@
 Map<String, DSBSubject> dsbSubjectMapPretty = {
-  '---': DSBSubject.entfaellt,
+  'Entfällt': DSBSubject.entfaellt,
   'Englisch': DSBSubject.englisch,
   'Mathematik': DSBSubject.mathematik,
   'Kunst': DSBSubject.kunst,
@@ -25,7 +25,7 @@ Map<String, DSBSubject> dsbSubjectMapPretty = {
   'Unbekannt': DSBSubject.unbekannt
 };
 
-Map<String, DSBSubject> dsbSubjectMap = dsbSubjectMapPretty.map((key, value) => MapEntry(key.toLowerCase(), value));
+Map<String, DSBSubject> dsbSubjectMap = dsbSubjectMapPretty.map((key, value) => MapEntry(key.toLowerCase() != 'Entfällt' ? key.toLowerCase() : '---', value));
 
 Map<DSBSubject, String> dsbSubjectShortPretty = {
   DSBSubject.entfaellt: '-',
@@ -80,56 +80,3 @@ enum DSBSubject {
   sozialkunde,
   pause
 }
-
-//OLD
-
-Map<String, DSBSubject> _dsbSubjectMapOld = {
-  '---': DSBSubject.entfaellt,
-  'englisch': DSBSubject.englisch,
-  'mathematik': DSBSubject.mathematik,
-  'kunst': DSBSubject.kunst,
-  'deutsch': DSBSubject.deutsch,
-  'latein': DSBSubject.latein,
-  'französisch': DSBSubject.franzoesisch,
-  'chemie': DSBSubject.chemie,
-  'chemie (übungen)': DSBSubject.chemieUebung,
-  'evangelische religionslehre': DSBSubject.evReligion,
-  'katholische religionslehre': DSBSubject.kathReligion,
-  'physik': DSBSubject.physik,
-  'ethik': DSBSubject.ethik,
-  'geografie': DSBSubject.geografie,
-  'geschichte': DSBSubject.geografie,
-  'biologie': DSBSubject.biologie,
-  'musik': DSBSubject.musik,
-  'sport (w)': DSBSubject.sportW,
-  'sport (m)': DSBSubject.sportM,
-  'wirtschaft und recht': DSBSubject.wirtschaftUndRecht,
-  'informatik': DSBSubject.informatik,
-  'pause': DSBSubject.pause
-};
-
-Map<String, DSBSubject> _dsbSubjectShortPrettyOld = {
-  '-': DSBSubject.entfaellt,
-  'E': DSBSubject.englisch,
-  'M': DSBSubject.mathematik,
-  'K': DSBSubject.kunst,
-  'D': DSBSubject.deutsch,
-  'L': DSBSubject.latein,
-  'Fr': DSBSubject.franzoesisch,
-  'Ch': DSBSubject.chemie,
-  'Ch-Ü': DSBSubject.chemieUebung,
-  'EvR': DSBSubject.evReligion,
-  'KtR': DSBSubject.kathReligion,
-  'Ph': DSBSubject.physik,
-  'Eth': DSBSubject.ethik,
-  'Geo': DSBSubject.geografie,
-  'G': DSBSubject.geografie,
-  'Bio': DSBSubject.biologie,
-  'Mu': DSBSubject.musik,
-  'Sp': DSBSubject.sportW,
-  'Sp': DSBSubject.sportM,
-  'WR': DSBSubject.wirtschaftUndRecht,
-  'Info': DSBSubject.informatik,
-  'Sozi': DSBSubject.sozialkunde,
-  '': DSBSubject.pause
-};
