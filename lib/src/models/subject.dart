@@ -22,6 +22,9 @@ Map<String, DSBSubject> dsbSubjectMapPretty = {
   'Wirtschaft und Recht': DSBSubject.wirtschaftUndRecht,
   'Informatik': DSBSubject.informatik,
   'Sozialkunde': DSBSubject.sozialkunde,
+  'Natur und Technik': DSBSubject.naturUndTechnik,
+  'Diff. Sportunterricht (w)': DSBSubject.diffSportunterrichtW,
+  'Diff. Sportunterricht (m)': DSBSubject.diffSportunterrichtM,
   'Pause': DSBSubject.pause,
   'Unbekannt': DSBSubject.unbekannt
 };
@@ -48,9 +51,12 @@ Map<DSBSubject, String> dsbSubjectShortPretty = {
   DSBSubject.musik: 'Mu',
   DSBSubject.sportW: 'Sp',
   DSBSubject.sportM: 'Sp',
+  DSBSubject.diffSportunterrichtW: 'DSp',
+  DSBSubject.diffSportunterrichtM: 'DSp',
   DSBSubject.wirtschaftUndRecht: 'WuR',
   DSBSubject.informatik: 'Info',
   DSBSubject.sozialkunde: 'Sozi',
+  DSBSubject.naturUndTechnik: 'NuT',
   DSBSubject.pause: '',
   DSBSubject.unbekannt: '?'
 };
@@ -79,5 +85,8 @@ enum DSBSubject {
   wirtschaftUndRecht,
   informatik,
   sozialkunde,
+  naturUndTechnik,
+  diffSportunterrichtW,
+  diffSportunterrichtM,
   pause
 }
