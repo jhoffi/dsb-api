@@ -17,6 +17,8 @@ Future<bool> checkCredentials(String username, String password) async {
     var result = await dsb.dsbCheckCredentials(username, password, httpPost);
     return result == null;
   } catch (e) {
-    throw DSBQueryException(error: e);
+    var err;
+    if(e.runtimeType == ''.runtimeType) err = e;
+    throw DSBQueryException(error: err);
   }
 }
