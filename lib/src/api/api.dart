@@ -8,7 +8,9 @@ Future<Map> getData(String username, String password) async {
     var data = await dsb.dsbGetData(username, password, httpPost);
     return jsonDecode(data);
   } catch (e) {
-    throw DSBQueryException(error: e);
+    var err;
+    if(e.runtimeType == ''.runtimeType) err = e;
+    throw DSBQueryException(error: err);
   }
 }
 
