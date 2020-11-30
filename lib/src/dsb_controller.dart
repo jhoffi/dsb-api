@@ -97,10 +97,10 @@ class DSBController {
           _translateLessons(entries[i + 1]['title']), //stunden
           _translateDSBSubject(entries[i + 2]['title']),
           _translateDSBSubject(entries[i + 4]['title']),
-          entries[i + 2]['title'],
-          entries[i + 4]['title'],
           room != '---' ? room : '-', //raum
           entries[i + 5]['title']),
+          entries[i + 2]['title'],
+          entries[i + 4]['title'],
         );
         
       }
