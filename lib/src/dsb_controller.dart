@@ -70,10 +70,10 @@ class DSBController {
               substitute.lessons, 
               substitute.substitute, 
               substitute.subject, 
+              substitute.room, 
+              substitute.substituteText,
               substitute.substituteRaw,
               substitute.subjectRaw,
-              substitute.room, 
-              substitute.substituteText
             )
           );
         }
