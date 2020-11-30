@@ -6,8 +6,10 @@ class DSBSubstitute {
   final List<int> lessons;
   final DSBSubject substitute;
   final DSBSubject subject;
+  final String substituteRaw;
+  final String subjectRaw;
   final String room;
   final String substituteText;
 
-  DSBSubstitute(this.schoolClass, this.lessons, this.substitute, this.subject, this.room, this.substituteText);
+  DSBSubstitute(this.schoolClass, this.lessons, this.substitute, this.subject, this.room, this.substituteText, this.substituteRaw, this.subjectRaw);
 }
