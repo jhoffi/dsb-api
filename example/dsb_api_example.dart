@@ -1,8 +1,8 @@
 import 'package:dsb_api/dsb_api.dart';
 
 void main() async {
+  if (!(await DSBController.checkCredentials('username', 'password'))) return; //should return FALSE because of wrong username & password
   var dsb = DSBController('username', 'password');
-  if (!(await dsb.checkCredentials())) return; //should return FALSE because of wrong username & password
   var timetables = await dsb.getTimeTables();
   var textNews = await dsb.getTextNews();
   var documents = await dsb.getDocuments();

@@ -18,7 +18,12 @@ class DSBController {
     api = API(username, password);
   }
 
-  Future<bool> checkCredentials() async => await api.getAuthToken() != null;
+  static Future<bool> checkCredentials(String username, String password) async {
+    var api = API(username, password);
+    return await api.getAuthToken() != null;
+  }  
+
+  //Future<bool> checkCredentials() async => await api.getAuthToken() != null;
   Future<List<DSBTextNews>> getTextNews() async {
     var rawNews = await api.getNews();
     if (rawNews == null) return null;
