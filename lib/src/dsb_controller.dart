@@ -1,4 +1,4 @@
-import 'package:dsb_api/src/models/news.dart';
+import 'package:dsb_api/src/models/document.dart';
 import 'package:dsb_api/src/models/school_class.dart';
 import 'package:dsb_api/src/models/school_day.dart';
 import 'package:dsb_api/src/models/subject.dart';
@@ -7,52 +7,37 @@ import 'package:dsb_api/src/models/text_news.dart';
 import 'package:dsb_api/src/models/timetable_day.dart';
 import 'package:web_scraper/web_scraper.dart';
 import 'package:intl/intl.dart';
-import 'package:dsb_api/src/api/api.dart' as dsb_api;
+import 'package:dsb_api/src/api/api.dart';
 
 class DSBController {
-  String baseUrl;
-  final String _dateFormat = 'dd.MM.yyyy HH:mm';
-  final String username;
-  final String password;
+  final _dateFormat = DateFormat('dd.MM.yyyy HH:mm');
+  final _baseUrl = 'https://light.dsbcontrol.de/';
+  API api;
 
-  DSBController(this.username, this.password, { this.baseUrl = 'https://app.dsbcontrol.de' });
-
-  static Future<bool> checkCredentials(String username, String password) => dsb_api.checkCredentials(username, password);
-
-  Future<Map> getData() => dsb_api.getData(username, password);
-
-  List<DSBTextNews> getTextNews(Map data) {
-    var news = <DSBTextNews>[];
-    List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
-    var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'news');
-    if(newsIndex == -1) return news;
-    List rawNews = items[newsIndex]['Root']['Childs'];
-    var dateFormat = DateFormat(_dateFormat);
-    news = rawNews.map((item) => DSBTextNews(item['Title'], item['Detail'].replaceAll('\n', ''), dateFormat.parse(item['Date']), item['Date'])).toList();
-    return news;
+  DSBController(String username, String password) {
+    api = API(username, password);
   }
 
-  List<DSBNews> getNews(Map data) {
-    var news = <DSBNews>[];
-    List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
-    var newsIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'tiles');
-    if(newsIndex == -1) return news;
-    List rawNews = items[newsIndex]['Root']['Childs'];
-    var dateFormat = DateFormat(_dateFormat);
-    news = rawNews.map((item) => DSBNews(item['Title'], item['Childs'][0]['Detail'], dateFormat.parse(item['Date']), item['Date'])).toList();
-    return news;
+  Future<bool> checkCredentials() async => await api.getAuthToken() != null;
+  Future<List<DSBTextNews>> getTextNews() async {
+    var rawNews = await api.getNews();
+    if (rawNews == null) return null;
+    return rawNews.map((item) => DSBTextNews(item['Title'], item['Detail'].replaceAll('\n', ''), _dateFormat.parse(item['Date']), item['Date'])).toList();
   }
 
-  Future<List<DSBTimetableDay>> getTimeTables(Map data) async {
-    var days = <DSBTimetableDay>[];
-    List items = data['ResultMenuItems'].firstWhere((item) => item['Title'].toLowerCase() == 'inhalte')['Childs'];
-    var timetableIndex = items.indexWhere((e) => e['MethodName'].toLowerCase() == 'timetable');
-    if(timetableIndex == -1) return days;
-    List timetables = items[timetableIndex]['Root']['Childs'][0]['Childs'];
-    var dateFormat = DateFormat(_dateFormat);
-    days = await Future.wait(timetables.map((day) async {
+  Future<List<DSBDocument>> getDocuments() async {
+    var rawDocuments = await api.getDocuments();
+    if (rawDocuments == null) return null;
+    return rawDocuments.map((item) => DSBDocument(item['Title'], item['Childs'][0]['Detail'], _dateFormat.parse(item['Date']), item['Date'])).toList();
+  }
+
+  Future<List<DSBTimetableDay>> getTimeTables() async {
+    var timetables = await api.getTimetables();
+    if (timetables == null || timetables.isEmpty) return null;
+    List timetable = timetables[0]['Childs'];
+    var days = await Future.wait(timetable.map((day) async {
       var ttDay = await _webscrapTable(day['Detail']);
-      ttDay.updateDate = dateFormat.parse(day['Date']);
+      ttDay.updateDate = _dateFormat.parse(day['Date']);
       ttDay.formattedUpdateDate = day['Date'];
       return ttDay;
     }));
@@ -84,8 +69,8 @@ class DSBController {
 
   Future<DSBTimetableDay> _webscrapTable(String url) async {
     var dateFormat = DateFormat('dd.MM.yyyy');
-    var path = url.replaceAll(baseUrl, '');
-    final webScraper = WebScraper(baseUrl);
+    var path = url.replaceAll(_baseUrl, '');
+    final webScraper = WebScraper(_baseUrl);
     if(!(await webScraper.loadWebPage(path))) return null;
     var entries = webScraper.getElement('table.mon_list > tbody > tr > td', []);
     var substitutes = <DSBSubstitute>[];
@@ -137,13 +122,13 @@ class DSBController {
   }
 
   List<int> _translateLessons(String lessons) {
-    var parsedLesson = int.parse(lessons, onError: (source) => null,);
-    if(parsedLesson != null) {
+    var parsedLesson = int.tryParse(lessons);
+    if (parsedLesson != null) {
       return [parsedLesson];
     } else {
       List hoursDiffString = lessons.split(' - ');
       if(hoursDiffString.length != 2) return null; //return if didn't return two values
-      var hoursDiff = hoursDiffString.map((e) => int.parse(e, onError: (source) => 0,)).toList();
+      var hoursDiff = hoursDiffString.map((e) => int.parse(e)).toList();
       var diff = hoursDiff[1] - hoursDiff[0] + 1;
       var start = hoursDiff[0];
       var hours = <int>[];

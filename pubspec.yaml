@@ -8,9 +8,8 @@ environment:
 
 dependencies:
   #  path: ^1.7.0
-  web_scraper: ^0.0.6
-  dsbuntis: ^0.3.2
-  intl: ^0.16.1
+  web_scraper: ^0.1.4
+  intl: ^0.17.0
 
 dev_dependencies:
   pedantic: ^1.9.0
