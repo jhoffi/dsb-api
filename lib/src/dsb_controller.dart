@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dsb_api/src/models/document.dart';
 import 'package:dsb_api/src/models/school_class.dart';
 import 'package:dsb_api/src/models/school_day.dart';
@@ -12,10 +14,13 @@ import 'package:dsb_api/src/api/api.dart';
 class DSBController {
   final _dateFormat = DateFormat('dd.MM.yyyy HH:mm');
   final _baseUrl = 'https://light.dsbcontrol.de/';
+
+  HashMap<String, void> _missingSubjects;
   API api;
 
   DSBController(String username, String password) {
     api = API(username, password);
+    _missingSubjects = HashMap<String, bool>();
   }
 
   static Future<bool> checkCredentials(String username, String password) async {
@@ -72,6 +77,10 @@ class DSBController {
     return resultSubs.isNotEmpty ? resultSubs : null;
   }
 
+  List<String> getMissingSubjects() {
+    return _missingSubjects.keys.toList();
+  }
+
   Future<DSBTimetableDay> _webscrapTable(String url) async {
     var dateFormat = DateFormat('dd.MM.yyyy');
     var path = url.replaceAll(_baseUrl, '');
@@ -122,7 +131,7 @@ class DSBController {
 
   DSBSubject _translateDSBSubject(String subject) {
     subject = subject.toLowerCase();
-    if(!dsbSubjectMap.containsKey(subject)) print({ 'missing subject': subject});
+    if(!dsbSubjectMap.containsKey(subject)) _missingSubjects[subject] = null;
     return dsbSubjectMap.containsKey(subject) ? dsbSubjectMap[subject] : DSBSubject.unbekannt;
   }
 
