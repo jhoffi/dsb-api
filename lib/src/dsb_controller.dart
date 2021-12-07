@@ -129,10 +129,28 @@ class DSBController {
     }
   }
 
-  DSBSubject _translateDSBSubject(String subject) {
+  DSBSubjectData _translateDSBSubject(String subject) {
     subject = subject.toLowerCase();
-    if(!dsbSubjectMap.containsKey(subject)) _missingSubjects[subject] = null;
-    return dsbSubjectMap.containsKey(subject) ? dsbSubjectMap[subject] : DSBSubject.unbekannt;
+    var seniorGradeIndex1 = -1;
+    var seniorGradeIndex2 = -1;
+
+    if (subject.length >= 3) {
+      seniorGradeIndex1 = int.tryParse(subject.substring(0, 1));
+      seniorGradeIndex2 = int.tryParse(subject.substring(subject.length-1, subject.length));
+
+      if (seniorGradeIndex1 != null && seniorGradeIndex2 != null) subject = subject.substring(1, subject.length-1);
+      else {
+        seniorGradeIndex1 = -1;
+        seniorGradeIndex2 = -1;
+      }
+    }
+
+    if (!dsbSubjectMap.containsKey(subject)) {
+      _missingSubjects[subject] = null;
+      return DSBSubjectData(DSBSubject.unbekannt, seniorGradeIndex1, seniorGradeIndex2);
+    }
+
+    return DSBSubjectData(dsbSubjectMap[subject], seniorGradeIndex1, seniorGradeIndex2);
   }
 
   List<int> _translateLessons(String lessons) {
