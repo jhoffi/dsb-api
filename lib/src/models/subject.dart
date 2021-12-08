@@ -149,9 +149,9 @@ enum DSBSubject {
 }
 
 class DSBSubjectData {
-  final DSBSubject subject;
-  final int seniorGradeIndex1;
-  final int seniorGradeIndex2;
+  DSBSubject subject;
+  int seniorGradeIndex1;
+  int seniorGradeIndex2;
 
   DSBSubjectData(this.subject, this.seniorGradeIndex1, this.seniorGradeIndex2);
 }
