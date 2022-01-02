@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'dart:collection';
 
 import 'package:dsb_api/src/models/document.dart';
@@ -131,6 +133,7 @@ class DSBController {
 
   DSBSubjectData _translateDSBSubject(String subject) {
     subject = subject.toLowerCase();
+    subject.replaceAll(String.fromCharCode(0xa0), ' ');
     var seniorGradeIndex1 = -1;
     var seniorGradeIndex2 = -1;
 
@@ -144,13 +147,14 @@ class DSBController {
         seniorGradeIndex2 = -1;
       }
     }
+    var dsbSubject = getSubjectById(subject);
 
-    if (!dsbSubjectMap.containsKey(subject)) {
+    if (dsbSubject == null) {
       _missingSubjects[subject] = null;
-      return DSBSubjectData(DSBSubject.unbekannt, seniorGradeIndex1, seniorGradeIndex2);
+      return DSBSubjectData(DSBSubjectType.unbekannt, seniorGradeIndex1, seniorGradeIndex2);
     }
 
-    return DSBSubjectData(dsbSubjectMap[subject], seniorGradeIndex1, seniorGradeIndex2);
+    return DSBSubjectData(dsbSubject.subjectType, seniorGradeIndex1, seniorGradeIndex2);
   }
 
   List<int> _translateLessons(String lessons) {
