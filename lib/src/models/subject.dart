@@ -1,6 +1,6 @@
 Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.entfaellt                   , '-'     , 'Entfällt'                      , ' '             , DSBSubjectScope.both),
-  DSBSubject(DSBSubjectType.unbekannt                   , '?'     , ''                              , ''              , DSBSubjectScope.both),
+  DSBSubject(DSBSubjectType.unbekannt                   , '?'     , 'Unbekannt'                     , ''              , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.pause                       , ' '     , 'Pause'                         , ''              , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.instrumentalistenGruppe     , ''      , 'Instrumentalisten Gruppe'      , 'ins'           , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.modulZurBeruflOrientierung  , 'BO'    , 'Modul zur berufl. Orientierung', ''              , DSBSubjectScope.both),
