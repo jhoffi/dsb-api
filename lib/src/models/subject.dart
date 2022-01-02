@@ -77,7 +77,7 @@ DSBSubject getSubjectById(String id) {
           if scope is "both" returns the first
  */
 DSBSubject getSubjectByType(DSBSubjectType type, DSBSubjectScope scope) {
-  return subjects.firstWhere((e) => e.subjectType == type && (e.scope == scope || e.scope == DSBSubjectScope.both), orElse: () => null,);
+  return subjects.firstWhere((e) => e.subjectType == type && (e.scope == scope || e.scope == DSBSubjectScope.both || scope == DSBSubjectScope.both), orElse: () => null,);
 }
 
 class DSBSubject {
