@@ -1,9 +1,9 @@
 Set<DSBSubject> _subjects = {
-  DSBSubject(DSBSubjectType.entfaellt                   , '-'     , 'Entfällt'                      , ' '              , DSBSubjectScope.both),
+  DSBSubject(DSBSubjectType.entfaellt                   , '-'     , 'Entfällt'                      , ' '             , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.unbekannt                   , '?'     , ''                              , ''              , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.pause                       , ' '     , 'Pause'                         , ''              , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.instrumentalistenGruppe     , ''      , 'Instrumentalisten Gruppe'      , 'ins'           , DSBSubjectScope.both),
-  DSBSubject(DSBSubjectType.modulZurBeruflOrientierung  , 'BO'    , 'Modul zur berufl. Orientierung', ''           , DSBSubjectScope.both),
+  DSBSubject(DSBSubjectType.modulZurBeruflOrientierung  , 'BO'    , 'Modul zur berufl. Orientierung', ''              , DSBSubjectScope.both),
 
   DSBSubject(DSBSubjectType.englisch                    , 'E'     , 'Englisch'                      , ''              , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.mathematik                  , 'M'     , 'Mathematik'                    , ''              , DSBSubjectScope.exceptSeniorGrades),
@@ -70,6 +70,14 @@ Set<DSBSubject> subjects = () {
 DSBSubject getSubjectById(String id) {
   if (id.isEmpty || id.length == 1) id = ' ';
   return subjects.firstWhere((e) => e.id == id.toLowerCase(), orElse: () => null);
+}
+
+/*
+ scopes:  also returns subjects with scope "both"
+          if scope is "both" returns the first
+ */
+DSBSubject getSubjectByType(DSBSubjectType type, DSBSubjectScope scope) {
+  return subjects.firstWhere((e) => e.subjectType == type && (e.scope == scope || e.scope == DSBSubjectScope.both));
 }
 
 class DSBSubject {
