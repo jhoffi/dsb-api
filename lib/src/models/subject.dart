@@ -2,7 +2,6 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.entfaellt                   , '-'     , 'Entfällt'                      , ' '             , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.unbekannt                   , '?'     , 'Unbekannt'                     , ''              , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.pause                       , ' '     , 'Pause'                         , ''              , DSBSubjectScope.both),
-  DSBSubject(DSBSubjectType.instrumentalistenGruppe     , ''      , 'Instrumentalisten Gruppe'      , 'ins'           , DSBSubjectScope.both),
   DSBSubject(DSBSubjectType.modulZurBeruflOrientierung  , 'BO'    , 'Modul zur berufl. Orientierung', ''              , DSBSubjectScope.both),
 
   DSBSubject(DSBSubjectType.englisch                    , 'E'     , 'Englisch'                      , ''              , DSBSubjectScope.exceptSeniorGrades),
@@ -37,6 +36,7 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.englischKonversation        , ''      , 'Englisch Konversation'         , 'eko'           , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.fotokurs                    , ''      , 'Fotokurs'                      , 'fot'           , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.psychologie                 , ''      , 'Psychologie'                   , 'psy'           , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.instrumentalistenGruppe     , ''      , 'Instrumentalisten Gruppe'      , 'ins'           , DSBSubjectScope.seniorGradesOnly),
 
   DSBSubject(DSBSubjectType.englisch                    , ''      , 'Englisch'                      , 'e'             , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.mathematik                  , ''      , 'Mathematik'                    , 'm'             , DSBSubjectScope.seniorGradesOnly),
