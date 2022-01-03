@@ -39,6 +39,7 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.instrumentalistenGruppe     , ''      , 'Instrumentalisten Gruppe'      , 'ins'           , DSBSubjectScope.seniorGradesOnly),
 
   DSBSubject(DSBSubjectType.englisch                    , ''      , 'Englisch'                      , 'e'             , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.physik                      , ''      , 'Physik'                        , 'ph'            , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.mathematik                  , ''      , 'Mathematik'                    , 'm'             , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.kunst                       , ''      , 'Kunst'                         , 'ku'            , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.deutsch                     , ''      , 'Deutsch'                       , 'd'             , DSBSubjectScope.seniorGradesOnly),
@@ -56,6 +57,8 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.wirtschaftUndRecht          , ''      , 'Wirtschaft und Recht'          , 'wr'            , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.informatik                  , ''      , 'Informatik'                    , 'inf'           , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.sozialkunde                 , ''      , 'Sozialkunde'                   , 'sk'            , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.wSeminar                    , ''      , 'W-Seminar'                     , 'w'             , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.pSeminar                    , ''      , 'P-Seminar'                     , 'p'             , DSBSubjectScope.seniorGradesOnly),
 };
 
 Set<DSBSubject> subjects = () {
@@ -132,6 +135,8 @@ enum DSBSubjectType {
   instrumentalistenGruppe,
   psychologie,
   modulZurBeruflOrientierung,
+  wSeminar,
+  pSeminar,
 }
 
 class DSBSubjectData {
