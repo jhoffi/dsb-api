@@ -44,7 +44,7 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.kunst                       , ''      , 'Kunst'                         , 'ku'            , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.deutsch                     , ''      , 'Deutsch'                       , 'd'             , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.latein                      , ''      , 'Latein'                        , 'l'             , DSBSubjectScope.seniorGradesOnly),
-  DSBSubject(DSBSubjectType.franzoesisch                , ''      , 'Französisch'                   , 'f'             , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.franzoesisch                , ''      , 'Französisch'                   , 'fs'             , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.chemie                      , ''      , 'Chemie'                        , 'c'             , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.evReligion                  , ''      , 'Evangelische Religionslehre'   , 'ev'            , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.kathReligion                , ''      , 'Katholische Religionslehre'    , 'k'             , DSBSubjectScope.seniorGradesOnly),
