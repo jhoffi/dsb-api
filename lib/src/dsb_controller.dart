@@ -137,6 +137,9 @@ class DSBController {
     var seniorGradeIndex1 = -1;
     var seniorGradeIndex2 = -1;
 
+    if (subject == '---') return DSBSubjectData(DSBSubjectType.entfaellt, -1, -1);
+
+
     if (subject.length >= 3) {
       seniorGradeIndex1 = int.tryParse(subject.substring(0, 1));
       seniorGradeIndex2 = int.tryParse(subject.substring(subject.length-1, subject.length));
