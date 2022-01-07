@@ -71,7 +71,7 @@ Set<DSBSubject> subjects = () {
 
 //returns null if not found
 DSBSubject getSubjectById(String id) {
-  if (id.isEmpty || id.length == 1) id = ' ';
+  if (id.isEmpty) id = ' ';
   return subjects.firstWhere((e) => e.id == id.toLowerCase(), orElse: () => null);
 }
 
