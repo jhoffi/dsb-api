@@ -133,11 +133,11 @@ class DSBController {
 
   DSBSubjectData _translateDSBSubject(String subject) {
     subject = subject.toLowerCase();
-    subject.replaceAll(String.fromCharCode(0xa0), ' ');
+
     var seniorGradeIndex1 = -1;
     var seniorGradeIndex2 = -1;
 
-    if (subject == '---') return DSBSubjectData(DSBSubjectType.entfaellt, -1, -1);
+    if (subject == '---' || subject.isEmpty || subject.codeUnitAt(0) == 160) return DSBSubjectData(DSBSubjectType.entfaellt, -1, -1);
 
 
     if (subject.length >= 3) {
