@@ -1,7 +1,5 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-import 'dart:collection';
-
 import 'package:dsb_api/src/models/document.dart';
 import 'package:dsb_api/src/models/school_class.dart';
 import 'package:dsb_api/src/models/school_day.dart';
@@ -17,12 +15,11 @@ class DSBController {
   final _dateFormat = DateFormat('dd.MM.yyyy HH:mm');
   final _baseUrl = 'https://light.dsbcontrol.de/';
 
-  HashMap<String, void> _missingSubjects;
+  Set<String> _missingSubjects = {};
   API api;
 
   DSBController(String username, String password) {
     api = API(username, password);
-    _missingSubjects = HashMap<String, bool>();
   }
 
   static Future<bool> checkCredentials(String username, String password) async {
@@ -80,7 +77,7 @@ class DSBController {
   }
 
   List<String> getMissingSubjects() {
-    return _missingSubjects.keys.toList();
+    return _missingSubjects.toList();
   }
 
   Future<DSBTimetableDay> _webscrapTable(String url) async {
@@ -153,7 +150,7 @@ class DSBController {
     var dsbSubject = getSubjectById(subject);
 
     if (dsbSubject == null) {
-      _missingSubjects[subject] = null;
+      _missingSubjects.add(subject);
       return DSBSubjectData(DSBSubjectType.unbekannt, seniorGradeIndex1, seniorGradeIndex2);
     }
 
