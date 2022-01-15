@@ -153,4 +153,4 @@ class DSBSubjectData {
   DSBSubjectData(this.subject, this.seniorGradeIndex1, this.seniorGradeIndex2);
 }
 
-//TODO: Add "drg" "il/d2" "Cho_U-Chor" "WU_Orchester (Unterstufe)"
+//TODO: Add "drg" "il/d2"
