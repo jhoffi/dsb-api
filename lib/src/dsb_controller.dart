@@ -114,7 +114,10 @@ class DSBController {
       if(name == '11' || name == '12') {
         return DSBSchoolClass(int.parse(name), '');
       } else {
-        var grade = int.parse(name.substring(0, name.length - 1));
+        var grade = int.tryParse(name.substring(0, name.length - 1));
+        if (grade == null) { //Wrong Format
+          return DSBSchoolClass(-1, name);
+        }
         var className = name.substring(name.length - 1).toUpperCase();
         return DSBSchoolClass(grade,className);
       }
