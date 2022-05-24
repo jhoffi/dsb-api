@@ -144,8 +144,13 @@ class DSBController {
       seniorGradeIndex1 = int.tryParse(subject.substring(0, 1));
       seniorGradeIndex2 = int.tryParse(subject.substring(subject.length-1, subject.length));
 
-      if (seniorGradeIndex1 != null && seniorGradeIndex2 != null) subject = subject.substring(1, subject.length-1);
-      else {
+      if (seniorGradeIndex1 != null && seniorGradeIndex2 == null) {
+        //p & w Seminar
+        seniorGradeIndex2 = int.tryParse(subject.substring(2, 3));
+        subject = subject.substring(1,2);
+      } else if (seniorGradeIndex1 != null && seniorGradeIndex2 != null) {
+        subject = subject.substring(1, subject.length-1);
+      } else {
         seniorGradeIndex1 = -1;
         seniorGradeIndex2 = -1;
       }
