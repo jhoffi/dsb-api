@@ -132,7 +132,9 @@ class DSBController {
   }
 
   DSBSubjectData _translateDSBSubject(String subject) {
-    subject = subject.toLowerCase();
+    subject = subject.toLowerCase()
+                .replaceAll('ã¶', 'ö')
+                .replaceAll('ã¤', 'ä');
 
     var seniorGradeIndex1 = -1;
     var seniorGradeIndex2 = -1;
