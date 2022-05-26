@@ -5,9 +5,12 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.modulZurBeruflOrientierung  , 'BO'    , 'Modul zur berufl. Orientierung', ''                          , DSBSubjectScope.both),
 
   DSBSubject(DSBSubjectType.englisch                    , 'E'     , 'Englisch'                      , ''                          , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.englischILV                 , 'Eilv'  , 'Englisch Indiv. Lernzeitverk.' , 'e (ilv)'                   , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.mathematik                  , 'M'     , 'Mathematik'                    , ''                          , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.mathematikILV               , 'Milv'  , 'Mathematik Indiv. Lernzeitverk.', 'm (ilv)'                  , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.kunst                       , 'K'     , 'Kunst'                         , ''                          , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.deutsch                     , 'D'     , 'Deutsch'                       , ''                          , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.deutschILV                  , 'Dilv'  , 'Deutsch Indiv. Lernzeitverk.'  , 'd (ilv)'                   , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.latein                      , 'L'     , 'Latein'                        , ''                          , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.franzoesisch                , 'Fr'    , 'Französisch'                   , ''                          , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.chemie                      , 'Ch'    , 'Chemie'                        , ''                          , DSBSubjectScope.exceptSeniorGrades),
@@ -31,10 +34,16 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.informatik                  , 'Info'  , 'Informatik'                    , ''                          , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.sozialkunde                 , 'Sozi'  , 'Sozialkunde'                   , ''                          , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.naturUndTechnik             , 'NuT'   , 'Natur und Technik'             , ''                          , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.naturUndTechnikOderInformatik, 'NuT/I' , 'Natur und Technik / Informatik', 'nut/inf'                  , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.naturUndTechnikOderInformatik, 'NuT/I' , 'Natur und Technik / Informatik', 'nut (informatik)'         , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.naturUndTechnikOderBiologie , 'NuT/B' , 'Natur und Technik / Biologie'  , 'nut/b'                     , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.naturUndTechnikOderBiologie , 'NuT/B' , 'Natur und Technik / Biologie'  , 'nut (biologie)'            , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.naturUndTechnikOderPhysik   , 'NuT/P' , 'Natur und Technik / Physik'    , 'nut/p'                     , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.naturUndTechnikOderPhysik   , 'NuT/P' , 'Natur und Technik / Physik'    , 'nut (physik)'              , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.nta                         , 'NTA'   , 'Naturwissenschafliches Arbeiten', 'naturw. arb. (nta)'       , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.chorUnterstufe              , 'Cho'   , 'Unterstufen Chor'              , 'cho_u-chor'                , DSBSubjectScope.exceptSeniorGrades),
   DSBSubject(DSBSubjectType.orchesterUnterstufe         , 'Orch'  , 'Unterstufen Orchester'         , 'wu_orchester (unterstufe)' , DSBSubjectScope.exceptSeniorGrades),
+  DSBSubject(DSBSubjectType.franzoesischSpaetbeginnend  , 'FrSp'  , 'Französisch spätbeginnend'     , ''                          , DSBSubjectScope.exceptSeniorGrades),
 
   DSBSubject(DSBSubjectType.englischKonversation        , ''      , 'Englisch Konversation'         , 'eko'                       , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.fotokurs                    , ''      , 'Fotokurs'                      , 'fot'                       , DSBSubjectScope.seniorGradesOnly),
@@ -63,6 +72,7 @@ Set<DSBSubject> _subjects = {
   DSBSubject(DSBSubjectType.sozialkunde                 , ''      , 'Sozialkunde'                   , 'sk'                        , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.wSeminar                    , ''      , 'W-Seminar'                     , 'w'                         , DSBSubjectScope.seniorGradesOnly),
   DSBSubject(DSBSubjectType.pSeminar                    , ''      , 'P-Seminar'                     , 'p'                         , DSBSubjectScope.seniorGradesOnly),
+  DSBSubject(DSBSubjectType.sporttheorie                , ''      , 'Sporttheorie'                  , 'spt'                       , DSBSubjectScope.seniorGradesOnly),
 };
 
 Set<DSBSubject> subjects = () {
@@ -106,9 +116,12 @@ enum DSBSubjectScope {
 enum DSBSubjectType {
   unbekannt,
   englisch,
+  englischILV,
   mathematik,
+  mathematikILV,
   kunst,
   deutsch,
+  deutschILV,
   latein,
   franzoesisch,
   chemie,
@@ -133,7 +146,9 @@ enum DSBSubjectType {
   diffSportunterrichtM,
   pause,
   naturUndTechnikOderPhysik,
-  naturUndTechnikOderBiologie, 
+  naturUndTechnikOderBiologie,
+  naturUndTechnikOderInformatik,
+  nta,
   englischKonversation,
   fotokurs,
   instrumentalistenGruppe,
@@ -142,7 +157,9 @@ enum DSBSubjectType {
   wSeminar,
   pSeminar,
   chorUnterstufe,
-  orchesterUnterstufe
+  orchesterUnterstufe,
+  sporttheorie,
+  franzoesischSpaetbeginnend,
 }
 
 class DSBSubjectData {
