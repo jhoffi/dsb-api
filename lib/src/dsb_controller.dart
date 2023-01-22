@@ -197,7 +197,7 @@ class DSBController {
 String _replaceStrangeCharacters(String text) {
   return text
     .replaceAll('ã¶', 'ö')
-    .replaceAll('Ã¶', 'Ö')
+    .replaceAll('Ã¶', 'ö')
     .replaceAll('ã¤', 'ä')
-    .replaceAll('Ã¤', 'Ä');
+    .replaceAll('Ã¤', 'ä');
 }
