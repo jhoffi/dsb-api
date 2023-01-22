@@ -96,9 +96,9 @@ class DSBController {
           _translateDSBSubject(entries[i + 2]['title']),
           _translateDSBSubject(entries[i + 4]['title']),
           room != '---' ? room : '-', //raum
-          entries[i + 5]['title'],
-          entries[i + 2]['title'],
-          entries[i + 4]['title'],
+          _replaceStrangeCharacters(entries[i + 5]['title']),
+          _replaceStrangeCharacters(entries[i + 2]['title']),
+          _replaceStrangeCharacters(entries[i + 4]['title']),
           ),
         );
         
@@ -132,9 +132,7 @@ class DSBController {
   }
 
   DSBSubjectData _translateDSBSubject(String subject) {
-    subject = subject.toLowerCase()
-                .replaceAll('ã¶', 'ö')
-                .replaceAll('ã¤', 'ä');
+    subject = _replaceStrangeCharacters(subject.toLowerCase());
 
     var seniorGradeIndex1 = -1;
     var seniorGradeIndex2 = -1;
@@ -194,4 +192,12 @@ class DSBController {
     if(weekday == 5) return SchoolDay.friday;
     return null;
   }
+}
+
+String _replaceStrangeCharacters(String text) {
+  return text
+    .replaceAll('ã¶', 'ö')
+    .replaceAll('Ã¶', 'Ö')
+    .replaceAll('ã¤', 'ä')
+    .replaceAll('Ã¤', 'Ä');
 }
